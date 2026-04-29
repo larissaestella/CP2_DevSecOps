@@ -3,7 +3,6 @@ from flask import Flask, request, render_template_string, redirect
 
 app = Flask(__name__)
 
-# --- BASE DE DADOS COM SQL INJECTION (Vulnerabilidade Alta) ---
 def init_db():
     conn = sqlite3.connect('gamestore.db')
     c = conn.cursor()
@@ -15,7 +14,6 @@ def init_db():
 
 init_db()
 
-# --- CATÁLOGO DE JOGOS ---
 JOGOS = [
     {"capa": "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg", "titulo": "God of War", "preco": "R$ 199,90"},
     {"capa": "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/header.jpg", "titulo": "The Last of Us Part I", "preco": "R$ 249,90"},
@@ -25,7 +23,6 @@ JOGOS = [
     {"capa": "https://cdn.cloudflare.steamstatic.com/steam/apps/292030/header.jpg", "titulo": "The Witcher 3: Wild Hunt", "preco": "R$ 139,90"}
 ]
 
-# --- TEMPLATE DA INTERFACE (UI Escura) ---
 TEMPLATE_BASE = """
 <!DOCTYPE html>
 <html lang="pt-PT">
@@ -128,7 +125,6 @@ def login():
             c.execute(query)
             user = c.fetchone()
             if user:
-                # REDIRECIONAMENTO PARA HOME EM CASO DE SUCESSO
                 return redirect("/")
             else:
                 mensagem = f"<div class='alert alert-danger mt-4' style='background-color:#4a191e; color:#e74c3c; border:none;'>Credenciais incorretas para <b>{email}</b>.</div>"
